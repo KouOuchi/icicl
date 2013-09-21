@@ -1,19 +1,20 @@
 icicl
 =====
 
-I Count Instances and Check Leak. (Tiny instance counter and memory leak checker for C++). Running both Linux and Windows.
+**I** **C**ount **I**nstances and **C**heck **L**eak. (Tiny instance counter and memory leak checker for C++). 
+Running both Linux and Windows.
 
 
 How To Use
 ------ 
-### prerequisite ###
+### Prerequisite ###
 	#include "icicl.h"
 
 	#ifdef USE_ICICL
 	using namespace icicl;
 	#endif
  
-### modify your constructor and destructor ###
+### Modify your constructor and destructor ###
 	struct MyClass1
 	{
 	  MyClass1(void)
@@ -28,15 +29,17 @@ How To Use
 	};
 
 
-### retrieve instance counts ###
+### Retrieve instance counts and check. ###
 
-	  ICICL_INITIALIZE(); // reset instance counter
+	  ICICL_INITIALIZE(); // reset instance counter.
 
 	  {
+	    ...
 	    MyClass1 a;
+	    ...
 	  }
 
-	  ICICL_CHECK(); // test accumulate counters.
+	  ICICL_CHECK(); // test accumulate counters and log statistics.
 
 
 Customize
@@ -50,31 +53,34 @@ Customize
     Set a fileter to boost::log.
 
 +   `ICICL_GET_ACCUM(your_class)` :
-    Get your accumulate count abount your_class; 
+    Get your accumulate count abount your_class.
 
 +   `ICICL_GET_TOTAL(your_class)` :
-    Get your total count abount your_class; 
+    Get your total count abount your_class.
  
 +   `ICICL_COUNT()` :
-    Get accumulation and total about all class; 
+    Get accumulation and total about all class.
 
 
 How To Install
 --------
 ### Windows
 1. Setup Boost and boost-log
-   I confirmed boost-1.53 and boost-log-2.0.
+I confirmed boost-1.53 and boost-log-2.0.
 
 2. Set environment variable BOOST to boost installed path.
-   e.g. BOOST=c:\Apps\bin\boost_1_53
+e.g. BOOST=c:\Apps\bin\boost_1_53
 
 3. Build Library 
 
-   run premake.exe vs2010
-   And then, Solution is created.
+   run premake
 
+	`premake vs2010`
 
-   BUILD->Configuration Manager->Active solution platform. 
+   And then, Solution is created. And set active solution platform.
+
+	`BUILD->Configuration Manager->Active solution platform. `
+
    Set to "x64"
 
    I confirmed in VS2010 and VS2012.
@@ -88,17 +94,12 @@ How To Install
  
 ### Linux
 
-1. Setup Boost and boost-log
-
-2. Setup environment variable
-
-export BOOST=/usr/local/lib/boost_1_53_0
-LD_LIBRARY_PATH=${BOOST}/stage/x64/lib
-
-3. Build
-	$ premake gmake
-	$ make config=debug
-	$ gmake/icicl_test_d 
+	export BOOST=/usr/local/lib/boost_1_53_0
+	export LD_LIBRARY_PATH=${BOOST}/stage/x64/lib
+	premake gmake
+	make config=debug
+	gmake/icicl_test_d 
+	
 	.-=< icicl test start >=-.
 	Running 11 test cases...
 	[2013-09-22 00:35:39.646030] [0x03369740] [fatal]   N7myclass8MyClass1E: accum=-4: total=1
@@ -111,20 +112,22 @@ LD_LIBRARY_PATH=${BOOST}/stage/x64/lib
 	[2013-09-22 00:35:39.647106] [0x03369740] [fatal]   detect memory leak!
 	[2013-09-22 00:35:39.648721] [0x03369740] [fatal]   N7myclass8MyClass1E: accum=1: total=1
 	[2013-09-22 00:35:39.648873] [0x03369740] [fatal]   detect memory leak!
-	.-=< icicl test end >=-.
-
-*** No errors detected
+	***.-=< icicl test end >=-.***
+	*** No errors detected
 
 Related Information
 --------
-### BOOST
-  [link]: http://www.boost.org/ "?"
+* BOOST
+  http://www.boost.org/ "boost_1_53_0 above"
  
-### BOOST LOG
-  [link]: http://www.boost.org/ "?"
+* BOOST LOG
+  http://boost-log.sourceforge.net/libs/log/doc/html/index.html "boost-log-2.0"
 
-### RTTI
-  [link]: http://www.cplusplus.com/reference/typeinfo/type_info/ "?"
+* Premake
+  http://industriousone.com/premake "premake 4"
+
+* RTTI
+  http://www.cplusplus.com/reference/typeinfo/type_info/ "type_info"
 
 TODO
 --------
@@ -132,6 +135,6 @@ TODO
 
 License
 ----------
-Copyright &copy; 2013 Kou Ouchi<kou.ouchi@division-engineering.com>
-Licensed under the [Boost Software License 1.0]
-[BOOST]: http://www.boost.org/LICENSE_1_0.txt
+  * Copyright &copy; 2013 Kou Ouchi <kou.ouchi@division-engineering.com>
+  * Licensed under the [Boost Software License 1.0]
+  * [BOOST]: http://www.boost.org/LICENSE_1_0.txt
