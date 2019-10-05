@@ -6,51 +6,35 @@
 #pragma once
 
 #include <typeinfo>
-#include <boost/log/trivial.hpp>
+#include <map>
+#include <tuple>
+#include <string>
 
 namespace icicl
 {
 
-// Trivial severity levels from boost/log/trivial.hpp
-namespace severity_level
-{
-enum _e
-{
-    trace,
-    debug,
-    info,
-    warning,
-    error,
-    fatal
-};
-}
-typedef severity_level::_e severity_level_enum;
+#ifdef ENABLE_ICICL
 
-#ifdef USE_ICICL
-
-extern void config_throw_exception(bool _x);
-extern void config_log_level(severity_level_enum _x);
-extern void config_throw_exception(long _x);
-
-extern void constructor(const std::type_info& _x);
-extern void destructor(const std::type_info& _x);
-extern void initialize();
-extern void count();
-extern int get_accum(const std::type_info& _x);
-extern int get_total(const std::type_info& _x);
-extern void check();
+void config_throw_exception(bool _x);
+void config_throw_exception(long _x);
+void constructor(const std::type_info& _x);
+void destructor(const std::type_info& _x);
+void initialize();
+void count();
+int get_accum(const std::type_info& _x);
+int get_total(const std::type_info& _x);
+void check();
 
 #define ICICL_CONFIG_THROW_EXCEPTION(_x) config_throw_exception( _x);
 #define ICICL_CONFIG_LOG_LEVEL(_x) config_log_level( _x);
 #define ICICL_CONFIG_INTERVAL(_x) config_throw_exception(_x);
-
-#define ICICL_CONSTRUCTOR() constructor(typeid(*this))
-#define ICICL_DESTRUCTOR() destructor(typeid(*this))
-#define ICICL_INITIALIZE() initialize()
-#define ICICL_GET_ACCUM(_x) get_accum(typeid(_x))
-#define ICICL_GET_TOTAL(_x) get_total(typeid(_x))
-#define ICICL_COUNT() count()
-#define ICICL_CHECK() check()
+#define ICICL_CONSTRUCTOR() icicl::constructor(typeid(*this))
+#define ICICL_DESTRUCTOR() icicl::destructor(typeid(*this))
+#define ICICL_INITIALIZE() icicl::initialize()
+#define ICICL_GET_ACCUM(_x) icicl::get_accum(typeid(_x))
+#define ICICL_GET_TOTAL(_x) icicl::get_total(typeid(_x))
+#define ICICL_COUNT() icicl::count()
+#define ICICL_CHECK() icicl::check()
 
 #else
 
