@@ -75,10 +75,10 @@ void _check()
   for (map<string, tuple<long, long> >::iterator it = instance_map_.begin();
        it != instance_map_.end(); ++it)
   {
+    cerr << it->first << ": accum=" <<
+         get<0>(it->second) << ": total=" << get<1>(it->second) << endl;
     if (get<0>(it->second) != 0)
     {
-      cerr << it->first << ": accum=" <<
-           get<0>(it->second) << ": total=" << get<1>(it->second) << endl;
       found = true;
     }
   }
