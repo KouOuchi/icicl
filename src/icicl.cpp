@@ -68,6 +68,10 @@ void _check()
   bool found = false;
   lock_guard<mutex> lock_gurard(mutex_);
 
+  cerr << "@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cerr << "@  -=< ICICL REPORT >=- @" << endl;
+  cerr << "@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+
   for (map<string, tuple<long, long> >::iterator it = instance_map_.begin();
        it != instance_map_.end(); ++it)
   {
@@ -82,13 +86,14 @@ void _check()
   if (found)
   {
     string message("detect memory leak!");
-    cerr << message;
+    cerr << message << endl;
 
     if (throw_exception_)
     {
       throw std::exception();
     }
   }
+  cerr << "." << endl;
 }
 
 void _initialize()
