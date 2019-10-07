@@ -2,8 +2,6 @@ icicl
 =====
 
 **I** **C**ount **I**nstances and **C**heck **L**eak. (Tiny instance counter and memory leak checker for C++). 
-Running both Linux and Windows.
-
 
 How To Use
 ------ 
